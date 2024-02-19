@@ -129,6 +129,50 @@ void interface::movies() {
 
 void interface::person() {
     cout<<"Система управления БД актеров\n";
+    cout<<"Выберите действие: \n"
+          "1 - Вывести актеров и режиссеров.\n"
+          "2 - Добавить рандомных актеров и режиссеров.\n"
+          "3 - Добавить актеров и режиссеров вручную.\n"
+          "4 - Общее число актеров и режиссеров.\n"
+          "5 - Удалить актеров и режиссеров по ID.\n"
+          "6 - Назад\n";
+    class person persons(DB);
+    int buf;
+    cin>>buf;
+    switch (buf) {
+        case 1:
+            persons.select();
+            this->person();
+            break;
+        case 2:
+            int n;
+            cout<<"Сколько рандомных актеров/режиссеров добавить?\n";
+            cin>>n;
+            persons.randInsert(n);
+            this->person();
+            break;
+        case 3:
+            persons.consoleInsert();
+            this->movies();
+            break;
+        case 4:
+            cout<<persons.getLastID()<<endl;
+            this->person();
+            break;
+        case 5:
+            int ID;
+            cout<<"Какого актера/режиссера удалить (ID)?\n";
+            cin>>ID;
+            persons.deleteById(ID);
+            this->person();
+            break;
+        case 6:
+            changer();
+            break;
+        default:
+            cout<<"Error\n";
+            this->person();
+    }
 }
 
 interface::interface(sqlite3 *DB) {
