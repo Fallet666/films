@@ -38,7 +38,7 @@ void movies::select() {
         return;
     }
 
-    fmt::print("{:<5} {:<45} {:<35} {:<15} {:<15}\n", "ID", "TITLE", "ACTORS", "RELEASE_DATE", "COUNTRY");
+    fmt::print("{:<5} {:<65} {:<35} {:<15} {:<15}\n", "ID", "TITLE", "ACTORS", "RELEASE_DATE", "COUNTRY");
     fmt::print("{:-<116}\n", "");
 
     while (sqlite3_step(stmt) == SQLITE_ROW) {
@@ -48,7 +48,7 @@ void movies::select() {
         const unsigned char* release_date = sqlite3_column_text(stmt, 3);
         const unsigned char* country = sqlite3_column_text(stmt, 4);
 
-        fmt::print("{:<5} {:<45} {:<35} {:<15} {:<15}\n", id, std::string(reinterpret_cast<const char*>(title)), std::string(reinterpret_cast<const char*>(actors)), std::string(reinterpret_cast<const char*>(release_date)), std::string(reinterpret_cast<const char*>(country)));
+        fmt::print("{:<5} {:<65} {:<35} {:<15} {:<15}\n", id, std::string(reinterpret_cast<const char*>(title)), std::string(reinterpret_cast<const char*>(actors)), std::string(reinterpret_cast<const char*>(release_date)), std::string(reinterpret_cast<const char*>(country)));
     }
 
     sqlite3_finalize(stmt);
@@ -139,14 +139,14 @@ void movies::randInsert(int n) {
     std::string countries[5] = {"Россия", "США", "Франция", "Великобритания", "Испания"};
     int buf = getLastID() + 1;
     std::shuffle(titles.begin(), titles.end(), std::mt19937(std::random_device()()));
-
+    person person(DB);
     for (int i = 0; i < n && i < titles.size(); i++) {
         std::string title = titles[i];
 
         std::string actors;
         std::vector<int> actor_ids;
         while (actor_ids.size() < 5) {
-            int actor_id = random() % 10 + 1;
+            int actor_id = random() % person.getLastID() + 1;
             if (std::find(actor_ids.begin(), actor_ids.end(), actor_id) == actor_ids.end()) {
                 actor_ids.push_back(actor_id);
                 actors += std::to_string(actor_id) + " ";
@@ -154,7 +154,7 @@ void movies::randInsert(int n) {
         }
         actors.pop_back();
 
-        int year = random() % 2 + 2023;
+        int year = random() % 50 + 1970;
         std::string release_date = std::to_string(year) + "-" + std::to_string(random() % 12 + 1) + "-" + std::to_string(random() % 28 + 1);
 
         std::string country = countries[random() % 5];

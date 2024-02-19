@@ -14,7 +14,8 @@
 
 class interface {
 public:
-    interface(sqlite3* DB);
+    explicit interface(sqlite3* DB);
+    ~interface();
     void changer();
 
 private:

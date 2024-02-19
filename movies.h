@@ -12,7 +12,7 @@
 #include <cstdlib>
 #include <algorithm>
 #include <random>
-
+#include "person.h"
 class movies {
 private:
     sqlite3* DB;

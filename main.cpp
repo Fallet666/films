@@ -16,7 +16,6 @@ int main() {
     }
     interface interface(DB);
     interface.changer();
-    sqlite3_close(DB);
 
     return 0;
 }

@@ -153,7 +153,7 @@ void interface::person() {
             break;
         case 3:
             persons.consoleInsert();
-            this->movies();
+            this->person();
             break;
         case 4:
             cout<<persons.getLastID()<<endl;
@@ -177,4 +177,8 @@ void interface::person() {
 
 interface::interface(sqlite3 *DB) {
     this->DB=DB;
+}
+
+interface::~interface() {
+    sqlite3_close(DB);
 }
