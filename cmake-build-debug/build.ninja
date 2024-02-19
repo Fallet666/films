@@ -65,6 +65,14 @@ build CMakeFiles/first_sql.dir/person.cpp.o: CXX_COMPILER__first_sql_unscanned_D
   OBJECT_DIR = CMakeFiles/first_sql.dir
   OBJECT_FILE_DIR = CMakeFiles/first_sql.dir
 
+build CMakeFiles/first_sql.dir/movies.cpp.o: CXX_COMPILER__first_sql_unscanned_Debug /Users/aleksejkorotkov/CLionProjects/first_sql/movies.cpp || cmake_object_order_depends_target_first_sql
+  DEFINES = -DFMT_SHARED
+  DEP_FILE = CMakeFiles/first_sql.dir/movies.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk -fcolor-diagnostics
+  INCLUDES = -isystem /opt/homebrew/include
+  OBJECT_DIR = CMakeFiles/first_sql.dir
+  OBJECT_FILE_DIR = CMakeFiles/first_sql.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target first_sql
@@ -73,7 +81,7 @@ build CMakeFiles/first_sql.dir/person.cpp.o: CXX_COMPILER__first_sql_unscanned_D
 #############################################
 # Link the executable first_sql
 
-build first_sql: CXX_EXECUTABLE_LINKER__first_sql_Debug CMakeFiles/first_sql.dir/main.cpp.o CMakeFiles/first_sql.dir/person.cpp.o | /opt/homebrew/lib/libfmt.10.2.1.dylib
+build first_sql: CXX_EXECUTABLE_LINKER__first_sql_Debug CMakeFiles/first_sql.dir/main.cpp.o CMakeFiles/first_sql.dir/person.cpp.o CMakeFiles/first_sql.dir/movies.cpp.o | /opt/homebrew/lib/libfmt.10.2.1.dylib
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk
   LINK_LIBRARIES = -Wl,-rpath,/opt/homebrew/lib  -lsqlite3  /opt/homebrew/lib/libfmt.10.2.1.dylib
   OBJECT_DIR = CMakeFiles/first_sql.dir

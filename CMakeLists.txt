@@ -5,7 +5,9 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_executable(first_sql main.cpp
         person.cpp
-        person.h)
+        person.h
+        movies.cpp
+        movies.h)
 
 find_package(fmt CONFIG REQUIRED)
 target_link_libraries(first_sql PRIVATE sqlite3)

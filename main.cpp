@@ -1,6 +1,5 @@
 #include <iostream>
 #include <sqlite3.h>
-#include "string"
 #include "person.h"
 
 // Функция для вставки данных в таблицу
@@ -15,6 +14,7 @@ int main() {
         return 1;
     }
     person person(DB);
+    person.randInsert(1);
     person.select();
     sqlite3_close(DB);
 
