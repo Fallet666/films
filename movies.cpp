@@ -154,7 +154,7 @@ void movies::randInsert(int n) {
         }
         actors.pop_back();
 
-        int year = random() % 50 + 1970;
+        int year = random() % 2 + 2023;
         std::string release_date = std::to_string(year) + "-" + std::to_string(random() % 12 + 1) + "-" + std::to_string(random() % 28 + 1);
 
         std::string country = countries[random() % 5];

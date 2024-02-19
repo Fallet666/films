@@ -1,7 +1,9 @@
 #include <iostream>
+#include "vector"
 #include <sqlite3.h>
 #include "person.h"
 #include "movies.h"
+#include "Database.h"
 
 // Функция для вставки данных в таблицу
 
@@ -14,9 +16,8 @@ int main() {
         std::cerr << "Error opening database." << std::endl;
         return 1;
     }
-    person person(DB);
-    movies movies(DB);
-    movies.select();
+    Database database(DB);
+    database.findActorsInNMovies(2);
     sqlite3_close(DB);
 
     return 0;

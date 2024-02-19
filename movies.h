@@ -10,12 +10,6 @@
 #include <fmt/core.h>
 #include <ctime>
 #include <cstdlib>
-
-#include <iostream>
-#include <sqlite3.h>
-#include <fmt/core.h>
-#include <ctime>
-#include <cstdlib>
 #include <algorithm>
 #include <random>
 
