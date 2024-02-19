@@ -1,6 +1,3 @@
-//
-// Created by Алексей Коротков on 18.02.2024.
-//
 
 #include "person.h"
 person::person(sqlite3* DB){
