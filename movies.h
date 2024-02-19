@@ -11,15 +11,27 @@
 #include <ctime>
 #include <cstdlib>
 
+#include <iostream>
+#include <sqlite3.h>
+#include <fmt/core.h>
+#include <ctime>
+#include <cstdlib>
+
 class movies {
 private:
     sqlite3* DB;
 public:
     movies(sqlite3* DB);
-    void insert(int id, const std::string& name, const std::string& release_date, const std::string& country);
+
+    void insert(int id, const std::string& title, const std::string& actors, const std::string& release_date, const std::string& country);
     void select();
     void deleteById(int id);
     void normalizeIds();
+
+    void consoleInsert();
+    void randInsert(int n);
+
+    int getLastID();
 };
 
 
