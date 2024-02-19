@@ -1,0 +1,3 @@
+/Users/aleksejkorotkov/CLionProjects/first_sql/cmake-build-debug/CMakeFiles/first_sql.dir
+/Users/aleksejkorotkov/CLionProjects/first_sql/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/aleksejkorotkov/CLionProjects/first_sql/cmake-build-debug/CMakeFiles/rebuild_cache.dir
