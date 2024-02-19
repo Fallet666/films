@@ -9,7 +9,9 @@ add_executable(first_sql main.cpp
         movies.cpp
         movies.h
         Database.cpp
-        Database.h)
+        Database.h
+        interface.cpp
+        interface.h)
 
 find_package(fmt CONFIG REQUIRED)
 target_link_libraries(first_sql PRIVATE sqlite3)

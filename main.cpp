@@ -1,9 +1,7 @@
 #include <iostream>
-#include "vector"
+#include "interface.h"
 #include <sqlite3.h>
-#include "person.h"
-#include "movies.h"
-#include "Database.h"
+
 
 // Функция для вставки данных в таблицу
 
@@ -16,8 +14,8 @@ int main() {
         std::cerr << "Error opening database." << std::endl;
         return 1;
     }
-    Database database(DB);
-    database.findActorsInNMovies(2);
+    interface interface(DB);
+    interface.changer();
     sqlite3_close(DB);
 
     return 0;

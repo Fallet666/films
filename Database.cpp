@@ -71,7 +71,12 @@ void Database::findActorsInMovie(int movieID) {
 }
 
 
-
+void Database::findActorDirectors() {
+    std::string query = "SELECT DISTINCT name FROM person WHERE name IN ("
+                        "SELECT name FROM person WHERE ad = 1 INTERSECT SELECT name FROM person WHERE ad = 0"
+                        ")";
+    executeAndPrintQuery(query);
+}
 void Database::findActorsInNMovies(int nMovies) {
     // Подготовка SQL-запроса для получения всех записей из таблицы MOVIES
     std::string sql = "SELECT ACTORS FROM MOVIES";
