@@ -7,8 +7,6 @@
 
 
 int main() {
-    srand(time(nullptr));
-    srandom(time(nullptr));
     sqlite3* DB;
     int exit = sqlite3_open("example.db", &DB);
 

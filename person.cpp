@@ -149,11 +149,13 @@ void person::consoleInsert(){
 }
 
 void person::randInsert(int n) {
+    srand(time(nullptr));
+    srandom(time(nullptr));
     std::string fir[10]={"Тарковский ","Сигарев ","Сакуров ","Аксенов ","Балабанов ","Семенов ","Смиронов ","Краус ","Сидоров ","Петров "};
     std::string sec[10]={"Алексадр ","Илья ","Булат ","Тимур ","Саймон ","Жека ","Олег ","Вася ","Иван ","Тимофей "};
     std::string thi[10]={"Александрович","Иванович","Булатович","Тимурович","Саймонович","Арсеньевич","Андреевич","Семенович","Викторович","Евгеньевич"};
     int buf=getLastID()+1;
-    for(int i;i<n;i++){
+    for(int i = 0; i < n; i++){
         insert(buf+i,fir[random()%10]+sec[random()%10]+thi[random()%10],std::to_string(random()%100+1900)+"-"+std::to_string(random()%12)+"-"+std::to_string(random()%20),random()%2);
     }
 }
