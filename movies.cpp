@@ -122,11 +122,20 @@ void movies::randInsert(int n) {
     int buf = getLastID() + 1;
     for (int i = 0; i < n; i++) {
         std::string title = titles[random() % 10];
-        std::string actors = std::to_string(random() % 10 + 1);
+        std::string actors;
+        int num_actors = random() % 5 + 1; // Random number of actors (1 to 5)
+        for (int j = 0; j < num_actors; j++) {
+            actors += std::to_string(random() % 10 + 1); // Random actor ID (1 to 10)
+            if (j != num_actors - 1) actors += " ";
+        }
+        int year = random() % 50 + 1970; // Random year between 1970 and 2019
+        std::string release_date = std::to_string(year) + "-" + std::to_string(random() % 12 + 1) + "-" + std::to_string(random() % 28 + 1);
+        std::string country = countries[random() % 5];
 
-        insert(buf + i, title, actors, "2024-02-18", countries[random() % 5]);
+        insert(buf + i, title, actors, release_date, country);
     }
 }
+
 
 int movies::getLastID() {
     std::string sql = "SELECT MAX(ID) FROM MOVIES";

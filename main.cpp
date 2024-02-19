@@ -8,7 +8,7 @@
 
 int main() {
     sqlite3* DB;
-    int exit = sqlite3_open("example.db", &DB);
+    int exit = sqlite3_open("/Users/aleksejkorotkov/CLionProjects/first_sql/example.db", &DB);
 
     if (exit != SQLITE_OK) {
         std::cerr << "Error opening database." << std::endl;
@@ -16,8 +16,8 @@ int main() {
     }
     person person(DB);
     movies movies(DB);
-    movies.randInsert(2);
-    movies.select();
+    person.randInsert(10);
+    person.select();
     sqlite3_close(DB);
 
     return 0;
