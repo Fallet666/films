@@ -16,6 +16,8 @@
 #include <fmt/core.h>
 #include <ctime>
 #include <cstdlib>
+#include <algorithm>
+#include <random>
 
 class movies {
 private:

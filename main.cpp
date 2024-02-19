@@ -16,8 +16,7 @@ int main() {
     }
     person person(DB);
     movies movies(DB);
-    person.randInsert(10);
-    person.select();
+    movies.select();
     sqlite3_close(DB);
 
     return 0;

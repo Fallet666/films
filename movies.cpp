@@ -38,7 +38,7 @@ void movies::select() {
         return;
     }
 
-    fmt::print("{:<5} {:<35} {:<35} {:<15} {:<15}\n", "ID", "TITLE", "ACTORS", "RELEASE_DATE", "COUNTRY");
+    fmt::print("{:<5} {:<45} {:<35} {:<15} {:<15}\n", "ID", "TITLE", "ACTORS", "RELEASE_DATE", "COUNTRY");
     fmt::print("{:-<116}\n", "");
 
     while (sqlite3_step(stmt) == SQLITE_ROW) {
@@ -48,7 +48,7 @@ void movies::select() {
         const unsigned char* release_date = sqlite3_column_text(stmt, 3);
         const unsigned char* country = sqlite3_column_text(stmt, 4);
 
-        fmt::print("{:<5} {:<35} {:<35} {:<15} {:<15}\n", id, std::string(reinterpret_cast<const char*>(title)), std::string(reinterpret_cast<const char*>(actors)), std::string(reinterpret_cast<const char*>(release_date)), std::string(reinterpret_cast<const char*>(country)));
+        fmt::print("{:<5} {:<45} {:<35} {:<15} {:<15}\n", id, std::string(reinterpret_cast<const char*>(title)), std::string(reinterpret_cast<const char*>(actors)), std::string(reinterpret_cast<const char*>(release_date)), std::string(reinterpret_cast<const char*>(country)));
     }
 
     sqlite3_finalize(stmt);
@@ -116,20 +116,47 @@ void movies::consoleInsert() {
 void movies::randInsert(int n) {
     srand(time(nullptr));
     srandom(time(nullptr));
-    std::string titles[10] = {"Побег из Шоушенка", "Зеленая миля", "Форрест Гамп", "Начало", "Крестный отец", "Матрица", "Побег из Алькатраса", "Гладиатор", "Интерстеллар", "Престиж"};
-    std::string countries[5] = {"Россия", "США", "Франция", "Великобритания", "Испания"};
+    std::vector<std::string> titles = {
+            "Побег из Шоушенка", "Зеленая миля", "Форрест Гамп", "Начало", "Крестный отец",
+            "Матрица", "Побег из Алькатраса", "Гладиатор", "Интерстеллар", "Престиж",
+            "Темный рыцарь", "Список Шиндлера", "Спасти рядового Райана", "Храброе сердце",
+            "Бойцовский клуб", "Бриллиантовая рука", "Пираты Карибского моря", "Аватар",
+            "Титаник", "Безумный Макс: Дорога ярости", "Терминатор 2: Судный день",
+            "Криминальное чтиво", "Властелин колец: Братство кольца", "Властелин колец: Две крепости",
+            "Властелин колец: Возвращение короля", "Мстители", "Бэтмен: Начало", "Бэтмен: Темный рыцарь",
+            "Бэтмен: Возвращение", "Игра престолов", "Блестящий", "Помни", "Гарри Поттер и философский камень",
+            "Гарри Поттер и Тайная комната", "Гарри Поттер и Узник Азкабана", "Гарри Поттер и Кубок огня",
+            "Гарри Поттер и Орден Феникса", "Гарри Поттер и Принц-полукровка", "Гарри Поттер и Дары Смерти: Часть 1",
+            "Гарри Поттер и Дары Смерти: Часть 2", "Терминатор", "Терминатор 3: Повстанье машин",
+            "Терминатор: Генезис", "Терминатор: Темные судьбы", "Пятый элемент", "Шерлок Холмс", "Агент 007",
+            "Мстители: Война бесконечности", "Мстители: Финал", "Звездные войны: Эпизод 1 – Скрытая угроза",
+            "Звездные войны: Эпизод 2 – Атака клонов", "Звездные войны: Эпизод 3 – Месть Ситхов",
+            "Звездные войны: Эпизод 4 – Новая надежда", "Звездные войны: Эпизод 5 – Империя наносит ответный удар",
+            "Звездные войны: Эпизод 6 – Возвращение Джедая", "Звездные войны: Эпизод 7 – Пробуждение Силы",
+            "Звездные войны: Эпизод 8 – Последние джедаи", "Звездные войны: Эпизод 9 – Скайуокер. Восход"
+    };
 
+    std::string countries[5] = {"Россия", "США", "Франция", "Великобритания", "Испания"};
     int buf = getLastID() + 1;
-    for (int i = 0; i < n; i++) {
-        std::string title = titles[random() % 10];
+    std::shuffle(titles.begin(), titles.end(), std::mt19937(std::random_device()()));
+
+    for (int i = 0; i < n && i < titles.size(); i++) {
+        std::string title = titles[i];
+
         std::string actors;
-        int num_actors = random() % 5 + 1; // Random number of actors (1 to 5)
-        for (int j = 0; j < num_actors; j++) {
-            actors += std::to_string(random() % 10 + 1); // Random actor ID (1 to 10)
-            if (j != num_actors - 1) actors += " ";
+        std::vector<int> actor_ids;
+        while (actor_ids.size() < 5) {
+            int actor_id = random() % 10 + 1;
+            if (std::find(actor_ids.begin(), actor_ids.end(), actor_id) == actor_ids.end()) {
+                actor_ids.push_back(actor_id);
+                actors += std::to_string(actor_id) + " ";
+            }
         }
-        int year = random() % 50 + 1970; // Random year between 1970 and 2019
+        actors.pop_back();
+
+        int year = random() % 50 + 1970;
         std::string release_date = std::to_string(year) + "-" + std::to_string(random() % 12 + 1) + "-" + std::to_string(random() % 28 + 1);
+
         std::string country = countries[random() % 5];
 
         insert(buf + i, title, actors, release_date, country);
@@ -142,18 +169,15 @@ int movies::getLastID() {
     sqlite3_stmt* stmt;
     int lastID = -1;
 
-    // Подготовка запроса
     if (sqlite3_prepare_v2(DB, sql.c_str(), -1, &stmt, NULL) != SQLITE_OK) {
         std::cerr << "Error preparing statement: " << sqlite3_errmsg(DB) << std::endl;
         return -1;
     }
 
-    // Выполнение запроса и получение результата
     if (sqlite3_step(stmt) == SQLITE_ROW) {
         lastID = sqlite3_column_int(stmt, 0);
     }
 
-    // Освобождаем ресурсы
     sqlite3_finalize(stmt);
 
     return lastID;
